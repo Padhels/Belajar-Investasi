@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuanStarter Pro | Katalog & Market Update</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 font-sans">
+
+    <nav class="bg-indigo-700 p-4 text-white shadow-xl">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-black italic">CUAN<span class="text-cyan-400">PRO</span></h1>
+            <div id="crypto-price" class="text-sm bg-indigo-800 px-3 py-1 rounded-full animate-pulse">
+                Loading Bitcoin Price...
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-chart-area mr-2 text-indigo-600"></i> Proyeksi Pertumbuhan Aset
+                </h2>
+                <canvas id="growthChart" height="150"></canvas>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Modal (Rp)</label>
+                        <input type="number" id="capital" value="1000000" class="w-full p-2 border-b-2 border-indigo-200 focus:border-indigo-600 outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Return (%)</label>
+                        <input type="number" id="rate" value="12" class="w-full p-2 border-b-2 border-indigo-200 focus:border-indigo-600 outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase">Tahun</label>
+                        <input type="number" id="years" value="10" class="w-full p-2 border-b-2 border-indigo-200 focus:border-indigo-600 outline-none transition">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-900 text-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-xl font-bold mb-4">Tips Pemula 💡</h2>
+                <ul class="space-y-4 text-indigo-100 text-sm">
+                    <li class="flex gap-3">
+                        <i class="fas fa-check-circle text-cyan-400"></i>
+                        <p>Gunakan <b>Dana Dingin</b> (bukan uang makan/sewa).</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <i class="fas fa-check-circle text-cyan-400"></i>
+                        <p>Diversifikasi: Jangan taruh semua uang di satu aset.</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <i class="fas fa-check-circle text-cyan-400"></i>
+                        <p>Lakukan DCA (Dollar Cost Averaging) atau rutin nyicil.</p>
+                    </li>
+                </ul>
+                <div class="mt-10 p-4 bg-indigo-800 rounded-xl border border-indigo-700">
+                    <p class="text-xs text-indigo-300">Hasil Akhir Estimasi:</p>
+                    <p id="resultDisplay" class="text-2xl font-black text-cyan-400">Rp 3.105.848</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- 1. Fungsi Ambil Data API (Bitcoin) ---
+        async function fetchPrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=idr');
+                const data = await response.json();
+                const price = data.bitcoin.idr;
+                document.getElementById('crypto-price').innerHTML = `₿ BTC: Rp ${price.toLocaleString('id-ID')}`;
+                document.getElementById('crypto-price').classList.remove('animate-pulse');
+            } catch (error) {
+                document.getElementById('crypto-price').innerText = "API Limit Reached";
+            }
+        }
+        fetchPrice();
+
+        // --- 2. Logika Grafik ---
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        let growthChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 11}, (_, i) => `Thn ${i}`),
+                datasets: [{
+                    label: 'Nilai Aset (Rp)',
+                    data: [],
+                    borderColor: '#4f46e5',
+                    backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            }
+        });
+
+        function updateSimulation() {
+            const P = parseFloat(document.getElementById('capital').value) || 0;
+            const r = (parseFloat(document.getElementById('rate').value) || 0) / 100;
+            const t = parseFloat(document.getElementById('years').value) || 0;
+
+            let dataPoints = [];
+            let labels = [];
+            for (let i = 0; i <= t; i++) {
+                const amount = P * Math.pow((1 + r), i);
+                dataPoints.push(amount);
+                labels.push(`Thn ${i}`);
+            }
+
+            growthChart.data.labels = labels;
+            growthChart.data.datasets[0].data = dataPoints;
+            growthChart.update();
+
+            const finalAmount = dataPoints[dataPoints.length - 1];
+            document.getElementById('resultDisplay').innerText = 'Rp ' + Math.round(finalAmount).toLocaleString('id-ID');
+        }
+
+        // Listener input
+        [document.getElementById('capital'), document.getElementById('rate'), document.getElementById('years')].forEach(el => {
+            el.addEventListener('input', updateSimulation);
+        });
+
+        // Jalankan sekali saat start
+        updateSimulation();
+    </script>
+</body>
+</html>
