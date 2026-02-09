@@ -6,123 +6,238 @@
     <title>Cuan Academy | Mentor Finansial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #020617; color: #f8fafc; line-height: 1.6; }
+        :root { --bg: #020617; --card: #0f172a; --accent: #fbbf24; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; scroll-behavior: smooth; }
         .tab-content { display: none; }
-        .active { display: block; animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .nav-btn.active-nav { color: #fbbf24; border-bottom: 3px solid #fbbf24; }
-        .card-edu { background: #0f172a; border: 1px solid #1e293b; padding: 24px; border-radius: 24px; margin-bottom: 20px; transition: 0.3s; }
-        .risk-bar-bg { background: #1e293b; height: 10px; border-radius: 10px; margin: 8px 0 16px 0; overflow: hidden; }
-        .risk-fill { height: 100%; border-radius: 10px; transition: width 1s ease-in-out; }
-        .label-flex { display: flex; justify-content: space-between; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .section-icon { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(251, 191, 36, 0.1); margin-right: 15px; }
+        .active { display: block; animation: fadeInUp 0.5s ease; }
+        .nav-btn.active-nav { color: var(--accent); border-bottom: 3px solid var(--accent); background: rgba(251, 191, 36, 0.05); }
+        .card-edu { background: var(--card); border: 1px solid #1e293b; padding: 24px; border-radius: 24px; margin-bottom: 20px; transition: 0.3s; position: relative; overflow: hidden; }
+        .card-edu:hover { transform: translateY(-5px); border-color: #334155; box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .badge { font-size: 10px; padding: 4px 10px; border-radius: 99px; font-weight: 800; text-transform: uppercase; }
+        .risk-bar { height: 8px; border-radius: 10px; background: #1e293b; margin-top: 8px; position: relative; }
+        .risk-fill { height: 100%; border-radius: 10px; transition: width 1.5s ease-in-out; }
+        ::-webkit-scrollbar { height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <header class="p-6 text-center bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
-        <h1 class="text-2xl font-black italic">CUAN<span class="text-yellow-400">ACADEMY</span></h1>
-        <p class="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Smart Education for Future</p>
+    <header class="p-6 text-center bg-slate-950/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+        <h1 class="text-2xl font-black italic tracking-tighter animate__animated animate__bounceIn">CUAN<span class="text-yellow-400">ACADEMY</span></h1>
+        <p class="text-[10px] text-slate-500 uppercase tracking-[0.3em] mt-1">Smart Education for Future You</p>
     </header>
 
-    <nav class="flex bg-slate-900 sticky top-[77px] z-40 border-b border-slate-800 overflow-x-auto">
-        <button onclick="openTab(event, 'bab1')" class="nav-btn active-nav flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">BAB 1: Management</button>
-        <button onclick="openTab(event, 'bab2')" class="nav-btn flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">BAB 2: Makro</button>
-        <button onclick="openTab(event, 'bab3')" class="nav-btn flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">BAB 3: Investasi</button>
+    <nav class="flex bg-slate-900 sticky top-[77px] z-40 border-b border-slate-800 overflow-x-auto no-scrollbar">
+        <button onclick="openTab(event, 'bab1')" class="nav-btn flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap transition-all">BAB 1: Management</button>
+        <button onclick="openTab(event, 'bab2')" class="nav-btn flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap transition-all">BAB 2: Makro</button>
+        <button onclick="openTab(event, 'bab3')" class="nav-btn flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap transition-all">BAB 3: Kebijakan</button>
+        <button onclick="openTab(event, 'bab4')" class="nav-btn active-nav flex-1 p-4 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap transition-all">BAB 4: Aset</button>
     </nav>
 
     <main class="container mx-auto px-5 py-8 max-w-2xl">
 
-        <section id="bab1" class="tab-content active">
-            <h2 class="text-2xl font-black text-yellow-400 mb-6 text-center">Money Management</h2>
-            
-            <div class="card-edu">
-                <div class="flex items-center mb-3">
-                    <div class="section-icon"><i class="fas fa-wallet text-sky-400"></i></div>
-                    <h3 class="font-bold text-lg text-sky-400">Apa itu Money Management?</h3>
-                </div>
-                <p class="text-sm text-slate-300">Cara mengatur uang supaya cukup untuk kebutuhan sekarang, dan aman untuk masa depan.</p>
+        <section id="bab1" class="tab-content">
+            <div class="text-center mb-10">
+                <i class="fas fa-wallet text-5xl text-yellow-400 mb-4"></i>
+                <h2 class="text-3xl font-extrabold mb-2">Money Management</h2>
+                <p class="text-slate-400 text-sm">Bukan Soal Banyak Uang, Tapi Cara Mengaturnya</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div class="card-edu border-t-2 border-red-500/50">
-                    <h4 class="font-bold text-red-400 text-xs underline mb-2">Tanpa Management:</h4>
-                    <ul class="text-[11px] space-y-1 text-slate-400">
-                        <li>❌ Gaji cepat habis</li>
-                        <li>❌ Susah nabung & Stres</li>
-                    </ul>
+            <div class="card-edu border-l-4 border-sky-500">
+                <h3 class="font-black text-sky-400 mb-2">Apa itu Money Management?</h3>
+                <p class="text-sm text-slate-300">Money management adalah cara mengatur uang supaya cukup untuk kebutuhan sekarang, dan aman untuk masa depan.</p>
+            </div>
+
+            <div class="card-edu border-t-4 border-pink-500">
+                <h3 class="font-black mb-4">Kenapa Penting?</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-red-500/10 p-4 rounded-2xl">
+                        <p class="text-[10px] font-bold text-red-400 mb-2 uppercase">Tanpa Management:</p>
+                        <p class="text-xs text-slate-300">❌ Gaji cepat habis<br>❌ Susah nabung<br>❌ Stres tiap akhir bulan</p>
+                    </div>
+                    <div class="bg-green-500/10 p-4 rounded-2xl">
+                        <p class="text-[10px] font-bold text-green-400 mb-2 uppercase">Dengan Management:</p>
+                        <p class="text-xs text-slate-300">✅ Kontrol penuh<br>✅ Bisa investasi<br>✅ Hidup lebih tenang</p>
+                    </div>
                 </div>
-                <div class="card-edu border-t-2 border-green-500/50">
-                    <h4 class="font-bold text-green-400 text-xs underline mb-2">Dengan Management:</h4>
-                    <ul class="text-[11px] space-y-1 text-slate-400">
-                        <li>✅ Keuangan terkontrol</li>
-                        <li>✅ Bisa investasi & Tenang</li>
-                    </ul>
+            </div>
+
+            <div class="card-edu">
+                <h3 class="font-black text-yellow-400 mb-4 italic">4 Langkah Money Management:</h3>
+                <div class="space-y-3 text-sm">
+                    <p>1️⃣ Catat pemasukan</p>
+                    <p>2️⃣ Atur pengeluaran</p>
+                    <p>3️⃣ Sisihkan tabungan</p>
+                    <p>4️⃣ Kelola investasi</p>
                 </div>
             </div>
 
             <div class="card-edu border-l-4 border-indigo-500">
-                <div class="flex items-center mb-3">
-                    <div class="section-icon"><i class="fas fa-users-rectangle text-indigo-400"></i></div>
-                    <h3 class="font-bold text-lg">Strategi Gen Sandwich</h3>
-                </div>
-                <p class="text-xs text-slate-400 mb-3">Bantu Ortu = Wajib, Korban Masa Depan = Tidak.</p>
-                <div class="bg-slate-900 p-4 rounded-xl text-[11px] space-y-2">
-                    <p>• Tentukan nominal tetap per bulan</p>
-                    <p>• Jangan pakai dana darurat</p>
-                    <p class="text-yellow-400 font-bold">🎯 Dana Darurat: Minimal 3-6 bulan pengeluaran.</p>
+                <h3 class="font-black text-indigo-400 mb-4 uppercase text-xs tracking-widest">Kondisi Gen Sandwich?</h3>
+                <div class="space-y-4">
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <p class="text-xs font-bold mb-2">Batas yang Jelas:</p>
+                        <p class="text-xs text-slate-400 italic">Bantu Ortu = Wajib, Korban Masa Depan = Tidak.</p>
+                        <p class="text-[11px] mt-2">✔️ Nominal tetap per bulan<br>✔️ Jangan pakai uang darurat<br>✔️ Konsisten, bukan emosional</p>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <p class="text-xs font-bold mb-1 text-red-400">Dana Darurat = Harga Mati</p>
+                        <p class="text-[11px] text-slate-400">Targetkan minimal 3-6 bulan pengeluaran. Ini pelindung supaya kamu tidak tumbang.</p>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center italic">
+                        <p class="text-xs">"Tunda Lifestyle, Bukan Masa Depan. Gengsi hari ini, hancur besok."</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="bab2" class="tab-content">
-            <h2 class="text-2xl font-black text-orange-400 mb-6 text-center">Makro Ekonomi</h2>
-            
-            <div class="card-edu border-t-4 border-yellow-400">
-                <h3 class="font-bold text-yellow-400 mb-4 flex items-center"><i class="fas fa-hotdog mr-2"></i> Inflasi: Nasgor Jadi Mahal?</h3>
-                <div class="flex justify-between bg-slate-900 p-4 rounded-xl mb-4 text-xs">
-                    <div><p class="text-slate-500">Dulu</p><p class="font-bold">15.000</p></div>
-                    <div class="text-right"><p class="text-slate-500">Sekarang</p><p class="font-bold text-red-400">22.000</p></div>
+            <div class="text-center mb-10">
+                <i class="fas fa-chart-line text-5xl text-orange-400 mb-4"></i>
+                <h2 class="text-3xl font-extrabold mb-2 text-orange-400">Makro Ekonomi</h2>
+                <p class="text-slate-400 text-sm">Memahami Roda Ekonomi Dunia</p>
+            </div>
+
+            <div class="card-edu border-t-4 border-orange-500">
+                <span class="badge bg-orange-500/20 text-orange-400 mb-2">Headline</span>
+                <h3 class="font-black text-xl mb-4">Inflasi: Harga Naik, Gaji Segitu Aja?</h3>
+                <p class="text-sm text-slate-300 mb-4">Kondisi ketika harga barang naik terus-menerus, sehingga nilai uang menurun.</p>
+                <div class="flex justify-between bg-slate-950 p-4 rounded-xl mb-4 border border-slate-800">
+                    <div><p class="text-[10px] text-slate-500 italic">Dulu</p><p class="font-bold">Nasgor Rp15.000</p></div>
+                    <div class="text-center text-orange-500 flex items-center"><i class="fas fa-arrow-right"></i></div>
+                    <div class="text-right"><p class="text-[10px] text-slate-500 italic">Sekarang</p><p class="font-bold text-red-400">Nasgor Rp22.000</p></div>
                 </div>
-                <p class="text-[11px] text-slate-400 italic">"Uangmu tetap, tapi barang yang didapat makin sedikit."</p>
+                <div class="text-[11px] space-y-2 bg-orange-500/5 p-4 rounded-xl text-orange-200">
+                    <p>✔️ Jangan simpan uang cuma dalam bentuk cash</p>
+                    <p>✔️ Investasi yang bisa lawan inflasi</p>
+                    <p class="italic">"Bukan uang yang harus bertambah, tapi nilainya yang dijaga."</p>
+                </div>
             </div>
 
-            <div class="card-edu border-l-4 border-blue-400">
-                <h3 class="font-bold text-blue-400 mb-2">GDP (Gross Domestic Product)</h3>
-                <p class="text-xs text-slate-300">Ukuran kesehatan ekonomi negara. GDP naik = ekonomi tumbuh & lapangan kerja banyak.</p>
-            </div>
-
-            <div class="card-edu bg-slate-900">
-                <h3 class="font-bold text-pink-400 text-sm mb-2 italic">Yield Curve Sinyal Resesi</h3>
-                <p class="text-[10px] text-slate-400">Grafik yang menunjukkan hubungan bunga tabungan/investasi jangka pendek vs panjang.</p>
+            <div class="card-edu border-t-4 border-blue-500">
+                <span class="badge bg-blue-500/20 text-blue-400 mb-2">Headline</span>
+                <h3 class="font-black text-xl mb-2">GDP: Ukuran Kesibukan Negara</h3>
+                <p class="text-sm text-slate-300 italic mb-4">"GDP Naik = Ekonomi Bergerak, GDP Turun = Ekonomi Melambat."</p>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div class="p-3 bg-slate-950 rounded-xl">
+                        <p class="font-bold text-blue-400">GDP Nominal</p>
+                        <p class="text-slate-500">Harga saat ini</p>
+                    </div>
+                    <div class="p-3 bg-slate-950 rounded-xl">
+                        <p class="font-bold text-green-400">GDP Riil</p>
+                        <p class="text-slate-500">Sudah potong inflasi</p>
+                    </div>
+                </div>
+                <p class="text-[11px] mt-4 text-slate-400 bg-blue-500/5 p-3 rounded-xl italic">GDP itu angka besar di berita, tapi dampaknya kecil kalau kita tidak siap. Pahami biar tidak cuma jadi penonton!</p>
             </div>
         </section>
 
         <section id="bab3" class="tab-content">
-            <h2 class="text-2xl font-black text-emerald-400 mb-6 text-center">Kelas Aset Investasi</h2>
+            <h2 class="text-2xl font-black text-indigo-400 mb-6 flex items-center gap-3">
+                <i class="fas fa-landmark"></i> Kebijakan Ekonomi
+            </h2>
 
             <div class="card-edu">
-                <div class="flex items-center mb-4">
-                    <div class="section-icon"><i class="fas fa-piggy-bank text-emerald-500"></i></div>
-                    <h3 class="font-extrabold text-xl text-emerald-500">Reksa Dana</h3>
+                <h3 class="font-black text-indigo-400 mb-3">Kebijakan Moneter (Bank Indonesia)</h3>
+                <p class="text-[11px] text-slate-400 mb-4">Mengatur jumlah uang beredar & stabilitas ekonomi.</p>
+                <div class="space-y-2 text-xs">
+                    <div class="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+                        <p class="font-bold">🔴 Moneter Ketat (Inflasi Tinggi)</p>
+                        <p class="text-slate-400">Suku bunga naik, Kredit mahal, Uang ditekan.</p>
+                    </div>
+                    <div class="p-3 bg-green-500/10 rounded-xl border border-green-500/20">
+                        <p class="font-bold">🟢 Moneter Longgar (Ekonomi Lesu)</p>
+                        <p class="text-slate-400">Suku bunga turun, Kredit mudah, Ekonomi didorong.</p>
+                    </div>
                 </div>
-                <div class="label-flex text-emerald-400"><span>Risk: Rendah</span><span>20%</span></div>
-                <div class="risk-bar-bg"><div class="risk-fill bg-emerald-500" style="width: 20%"></div></div>
-                <div class="label-flex text-blue-400"><span>Return: Stabil</span><span>30%</span></div>
-                <div class="risk-bar-bg"><div class="risk-fill bg-blue-500" style="width: 30%"></div></div>
             </div>
 
             <div class="card-edu">
-                <div class="flex items-center mb-4">
-                    <div class="section-icon"><i class="fas fa-building text-red-500"></i></div>
-                    <h3 class="font-extrabold text-xl text-red-500">Saham</h3>
+                <h3 class="font-black text-pink-400 mb-3">Kebijakan Fiskal (Pemerintah)</h3>
+                <p class="text-[11px] text-slate-400 mb-4">Mengatur ekonomi lewat Pajak, Belanja & Subsidi.</p>
+                <div class="grid grid-cols-1 gap-2 text-[11px]">
+                    <div class="p-3 bg-slate-950 rounded-xl">🚀 <strong>Ekspansif:</strong> Pajak turun, Belanja naik (Gerakkan ekonomi)</div>
+                    <div class="p-3 bg-slate-950 rounded-xl">🛑 <strong>Kontraktif:</strong> Pajak naik, Belanja turun (Tekan inflasi)</div>
                 </div>
-                <div class="label-flex text-red-400"><span>Risk: Tinggi</span><span>75%</span></div>
-                <div class="risk-bar-bg"><div class="risk-fill bg-red-500" style="width: 75%"></div></div>
-                <div class="label-flex text-red-400"><span>Return: Agresif</span><span>80%</span></div>
-                <div class="risk-bar-bg"><div class="risk-fill bg-red-500/50" style="width: 80%"></div></div>
+            </div>
+
+            <div class="card-edu border-t-4 border-emerald-500">
+                <h3 class="font-black text-emerald-400 mb-2 italic">Apa Itu Yield Curve?</h3>
+                <p class="text-xs text-slate-400 mb-4">Grafik hubungan tenor (jangka waktu) obligasi dan imbal hasil (yield).</p>
+                <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                    <div class="flex items-center gap-3 text-xs mb-3">
+                        <i class="fas fa-triangle-exclamation text-red-500"></i>
+                        <p><strong>Inverted Curve:</strong> Yield pendek > Yield panjang (Sinyal Resesi!)</p>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs">
+                        <i class="fas fa-check-circle text-emerald-500"></i>
+                        <p><strong>Normal Curve:</strong> Jangka panjang yield lebih tinggi (Ekonomi Sehat)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bab4" class="tab-content active">
+            <h2 class="text-2xl font-black text-emerald-400 mb-6 text-center">Kelas Aset Investasi</h2>
+
+            <div class="card-edu border-l-4 border-emerald-500">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-black text-xl">Reksa Dana</h3>
+                    <i class="fas fa-piggy-bank text-emerald-500 text-2xl"></i>
+                </div>
+                <p class="text-xs text-slate-400 mb-4 italic">"Kamu investasi, yang mengelola profesional."</p>
+                <div class="text-[11px] grid grid-cols-2 gap-2 mb-4">
+                    <p>✅ Modal Terjangkau</p><p>✅ Dikelola Ahli</p>
+                    <p>✅ Risiko Tersebar</p><p>✅ Untuk Pemula</p>
+                </div>
+                <div class="risk-bar"><div class="risk-fill bg-emerald-500" style="width: 25%"></div></div>
+                <p class="text-[9px] text-slate-500 mt-1 uppercase">Risk: Rendah - Menengah</p>
+            </div>
+
+            <div class="card-edu border-l-4 border-indigo-500">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-black text-xl text-indigo-400">Obligasi</h3>
+                    <i class="fas fa-scroll text-indigo-400 text-2xl"></i>
+                </div>
+                <p class="text-xs text-slate-300 italic mb-2">"Surat Utang: Kamu meminjamkan uang ke Negara/Perusahaan."</p>
+                <p class="text-[10px] bg-indigo-500/10 p-2 rounded text-indigo-200 mb-4">Keuntungan: Kupon (Bunga) secara berkala.</p>
+                <div class="risk-bar"><div class="risk-fill bg-indigo-500" style="width: 45%"></div></div>
+                <p class="text-[9px] text-slate-500 mt-1 uppercase">Risk: Menengah (Stabilitas)</p>
+            </div>
+
+            <div class="card-edu border-l-4 border-red-500">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-black text-xl text-red-500">Saham</h3>
+                    <i class="fas fa-building text-red-500 text-2xl"></i>
+                </div>
+                <p class="text-xs text-slate-300 mb-3">Bukti kepemilikan perusahaan. Untung dari <strong>Capital Gain</strong> (selisih harga) & <strong>Dividen</strong> (bagi laba).</p>
+                <p class="text-[11px] text-slate-500 italic">"Beli saham bukan menebak harga, tapi menilai bisnis."</p>
+                <div class="risk-bar"><div class="risk-fill bg-red-500" style="width: 80%"></div></div>
+                <p class="text-[9px] text-slate-500 mt-1 uppercase">Risk: Tinggi (Agresif)</p>
+            </div>
+
+            <div class="card-edu border-l-4 border-cyan-400">
+                <div class="flex justify-between items-start mb-4">
+                    <h3 class="font-black text-xl text-cyan-400">Crypto</h3>
+                    <i class="fab fa-bitcoin text-cyan-400 text-2xl"></i>
+                </div>
+                <p class="text-xs text-slate-300 mb-3">Aset digital Blockchain. Desentralisasi, transparan, global 24 jam.</p>
+                <p class="text-[10px] text-red-400 font-bold uppercase">High Risk = High Return</p>
+                <div class="risk-bar"><div class="risk-fill bg-cyan-400" style="width: 95%"></div></div>
+                <p class="text-[9px] text-slate-500 mt-1 uppercase">Risk: Ekstrim (Spekulasi)</p>
+            </div>
+
+            <div class="p-8 bg-slate-950 rounded-3xl border border-slate-800 text-center shadow-2xl">
+                <p class="text-xs text-slate-500 italic mb-4">"Belajar keuangan bukan soal kaya, tapi soal bertahan."</p>
+                <div class="flex justify-center gap-6 text-xl opacity-60">
+                    <i class="fab fa-instagram hover:text-pink-500 cursor-pointer transition-all"></i>
+                    <i class="fab fa-tiktok hover:text-white cursor-pointer transition-all"></i>
+                    <i class="fab fa-youtube hover:text-red-500 cursor-pointer transition-all"></i>
+                </div>
+                <p class="text-[10px] mt-6 text-slate-700">© 2026 Cuan Academy by Gemini</p>
             </div>
         </section>
 
@@ -132,14 +247,19 @@
         function openTab(evt, tabName) {
             var i, tabContent, tabLinks;
             tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) { tabContent[i].style.display = "none"; }
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
             tabLinks = document.getElementsByClassName("nav-btn");
-            for (i = 0; i < tabLinks.length; i++) { tabLinks[i].classList.remove("active-nav"); }
+            for (i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].classList.remove("active-nav");
+            }
             document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active-nav");
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
-
